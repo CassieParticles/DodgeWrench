@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
         //Add the "Move" function to the callback for the "Move" Input action
         playerInput.actions["Move"].performed += Move;
         playerInput.actions["Move"].canceled += Move;
+
+        playerInput.actions["Throw"].performed += Throw;
     }
 
     // Update is called once per frame
@@ -42,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
     private void Move(InputAction.CallbackContext context)
     {
         moveVector = context.ReadValue<Vector2>();
-        //rigidbodyComp.velocity = moveVector * playerMoveSpeed;
+    }
+
+    private void Throw(InputAction.CallbackContext context)
+    {
+        GameObject thrownWrench = Wrench.SpawnWrench(GetComponent<Team>(), transform.position, transform.position + new Vector3(0, 1));
     }
 }
